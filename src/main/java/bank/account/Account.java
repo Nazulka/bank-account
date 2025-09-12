@@ -17,5 +17,12 @@ public class Account {
         balance += amount;
     }
 
+    public boolean withdraw(double amount, String pin) {
+        if (!this.pin.equals(pin)) {
+            System.out.println("Wrong pin!");
+            return false;
+        }
+    }
+
 
 }
