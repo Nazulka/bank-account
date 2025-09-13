@@ -6,7 +6,7 @@ public class Account {
     private String pin;
 
 
-    // parametrized constructor - this lets us
+    // parametrized full constructor - this lets us
     // create an object with specific values
     public Account(String accountNumber, double initialBalance, String pin) {
         this.accountNumber=accountNumber;
@@ -14,18 +14,32 @@ public class Account {
         this.pin=pin;
     }
 
+    // 2. default constructor
+    public Account() {
+        this.accountNumber = '0000';
+        this.balance = 0.0;
+        this.pin = '1234';
+    }
+
+    // cope constructor
+    public Account(Account other) {
+        this.accountNumber = other.accountNumber;
+        this.balance = other.balance;
+        this.pin = other.pin;
+    }
+
     public void deposit(double amount) {
-        balance += amount;
+        balance += amount;  // shorthand: balance = balance - amount
     }
 
     public boolean withdraw(double amount, String pin) {
         if (!this.pin.equals(pin)) {
             System.out.println("Wrong pin!");
-            return false;
+            return;
         }
         if (amount>balance) {
             System.out.println("Not enough funds.");
-            return false;
+            return;
         }
 
         balance -= amount;
@@ -38,16 +52,16 @@ public class Account {
 
     // Test the class
     public static void main(String[] args) {
-        Account acc = new Account("A1001", 100.0, "1234");
-        System.out.println("Balance: " + acc.getBalance());
+        Account myAccount = new Account("A1001", 10.0, "1234");
+        System.out.println("Balance: " + myAccount.getBalance());
 
-        acc.deposit(50);
-        System.out.println("Balance after deposit: " + acc.getBalance());
+        myAccount.deposit(50);
+        System.out.println("Balance after deposit: " + myAccount.getBalance());
 
-        acc.withdraw(30, "1234");
-        System.out.println("Balance after withdraw: " + acc.getBalance());
+        myAccount.withdraw(30, "1234");
+        System.out.println("Balance after withdraw: " + myAccount.getBalance());
 
-        acc.withdraw(200, "1234"); // not enough funds
-        acc.withdraw(10, "0000"); // wrong PIN
+        myAccount.withdraw(200, "1234"); // not enough funds
+        myAccount.withdraw(10, "0000"); // wrong PIN
     }
 }
