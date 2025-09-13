@@ -16,9 +16,9 @@ public class Account {
 
     // 2. default constructor
     public Account() {
-        this.accountNumber = '0000';
+        this.accountNumber = "0000";
         this.balance = 0.0;
-        this.pin = '1234';
+        this.pin = "1234";
     }
 
     // cope constructor
@@ -35,11 +35,11 @@ public class Account {
     public boolean withdraw(double amount, String pin) {
         if (!this.pin.equals(pin)) {
             System.out.println("Wrong pin!");
-            return;
+            return false;
         }
         if (amount>balance) {
             System.out.println("Not enough funds.");
-            return;
+            return false;
         }
 
         balance -= amount;
@@ -48,20 +48,5 @@ public class Account {
 
     public double getBalance() {
         return balance;
-    }
-
-    // Test the class
-    public static void main(String[] args) {
-        Account myAccount = new Account("A1001", 10.0, "1234");
-        System.out.println("Balance: " + myAccount.getBalance());
-
-        myAccount.deposit(50);
-        System.out.println("Balance after deposit: " + myAccount.getBalance());
-
-        myAccount.withdraw(30, "1234");
-        System.out.println("Balance after withdraw: " + myAccount.getBalance());
-
-        myAccount.withdraw(200, "1234"); // not enough funds
-        myAccount.withdraw(10, "0000"); // wrong PIN
     }
 }
